@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Managementul Datelor Personale</title>
+    <script>
+        // ==========================================
+        // TASK 4: Setare cookies și funcție afișare generală
+        // ==========================================
+        document.cookie = "session=test GDPR; path=/";
+        document.cookie = "favorite_task=collect Data; path=/";
 
+        function alertCookie() { 
+            alert("Toate cookie-urile stocate:\n" + document.cookie); 
+        }
+
+        // ==========================================
+        // TASK 5: Exemple tip exercițiu Mozilla MDN
+        // ==========================================
+        
+        // Ex. MDN: Crearea unui cookie cu dată de expirare și SameSite
+        function setMDNCookie() {
+            document.cookie = "mdn_test_cookie=HelloMDN; expires=Fri, 31 Dec 2026 23:59:59 GMT; path=/; SameSite=Lax";
+            alert("Cookie-ul MDN a fost creat cu succes!");
+        }
+
+        // Ex. MDN: Citirea valorii unui cookie specific
+        function getSpecificCookieValue(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "Nu a fost găsit";
+        }
+
+        function showMDNCookie() {
+            let valoare = getSpecificCookieValue("favorite_task");
+            alert("Valoarea specifică extrasă pentru 'favorite_task' (Metoda MDN): " + valoare);
+        }
+
+        // Ex. MDN: Ștergerea unui cookie (se setează expirarea în trecut)
+        function deleteCookie() {
+            document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            alert("Cookie-ul 'session' a fost șters!");
+        }
+    </script>
+</head>
+<body>
+    <h1>Bine ai venit la lab!</h1>
+    <p>Această pagină implementează cerințele legate de manipularea document.cookie.</p>
+    
+    <h3>Task 4: Afișare de bază</h3>
+    <button onclick="alertCookie()">Show cookies</button>
+
+    <hr>
+
+    <h3>Task 5: Testare funcționalități inspirate din MDN Web APIs</h3>
+    <ul>
+        <li><button onclick="setMDNCookie()">Setează un Cookie cu opțiuni extra (MDN)</button></li>
+        <li><button onclick="showMDNCookie()">Citește valoarea unui cookie specific</button></li>
+        <li><button onclick="deleteCookie()">Șterge cookie-ul 'session'</button></li>
+    </ul>
+</body>
+</html>
